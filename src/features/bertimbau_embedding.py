@@ -12,7 +12,7 @@ import sys
 ################ Data Path #################################
 input_folder_path = '../../dataset/raw/dados_treino_pt_google_trad/'
 output_path_folder = "../../dataset/processed/dados_treino_pt_google_trad/bertimbau/"
-
+############################################################
 
 list_files = []
 list_index = []
@@ -25,7 +25,6 @@ for i in range(5):
     list_files.append(file)
     
 data = pd.concat(list_files)
-############################################################
 
 
 ################ Aux Functions #############################
