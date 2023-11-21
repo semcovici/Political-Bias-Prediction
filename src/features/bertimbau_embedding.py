@@ -7,24 +7,11 @@ import pandas as pd
 import numpy as np
 import datetime
 
-import sys
 
 ################ Data Path #################################
-input_folder_path = '../../dataset/raw/dados_treino_pt_google_trad/'
-output_path_folder = "../../dataset/processed/dados_treino_pt_google_trad/bertimbau/"
+data_input_path = '../../dataset/processed/artigos_tratados/artigos_tratados.parquet'
+data_output_path = "../../dataset/processed/artigos_tratados/bertimbau/artigos_tratados_bert_lg.parquet"
 ############################################################
-
-list_files = []
-list_index = []
-for i in range(5):
-    
-    input_forlder_filename = f'parte_{i + 1}.parquet'
-    
-    file = pd.read_parquet(input_folder_path + input_forlder_filename)
-    
-    list_files.append(file)
-    
-data = pd.concat(list_files)
 
 
 ################ Aux Functions #############################
@@ -33,7 +20,7 @@ ref: https://towardsdatascience.com/3-types-of-contextualized-word-embeddings-fr
 """
 def bert_text_preparation(text, tokenizer):
     marked_text = "[CLS] " + text + " [SEP]"
-    tokenized_text = tokenizer.tokenize(marked_text)
+    tokenized_text = tokenizer.tokenize(marked_text, truncation=True, max_length=512, padding = True)
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     segments_ids = [1]*len(indexed_tokens)
 
@@ -54,35 +41,34 @@ def get_bert_embeddings(tokens_tensor, segments_tensors, model):
     return list_token_embeddings
 ############################################################
 
+
 # import of models 
-tokenizer = AutoTokenizer.from_pretrained('neuralmind/bert-base-portuguese-cased', do_lower_case=False)
-model = BertModel.from_pretrained('neuralmind/bert-base-portuguese-cased', output_hidden_states = True)
+tokenizer = AutoTokenizer.from_pretrained('neuralmind/bert-large-portuguese-cased', do_lower_case=False)
+model = BertModel.from_pretrained('neuralmind/bert-large-portuguese-cased', output_hidden_states = True)
+
 
 # get data
-#data = get_data(data_input_path)
-data_bert = data[data.conteudo.str.len() <= 510]
-#data_bert = data
+data = pd.read_parquet(data_input_path)
+data_bert = data.copy()
 
-emb_list= list()
-
+emb_list = list()
 
 j = 0
 len_df = data_bert.shape[0]
 print(f'Start of Embeddding. Datetime: {datetime.datetime.today()}')
 for i, row in data_bert.iterrows():
 
-    #username, comment, created_utc = row
-    text = row['conteudo']
-    title = row['titulo']
-    label = row['rotulo_texto']
-    
-    tokenized_text, tokens_tensor_text, segments_tensors_text = bert_text_preparation(text, tokenizer)
-    tokenized_title, tokens_tensor_title, segments_tensors_title = bert_text_preparation(title, tokenizer)
+    text = row['Conteudo']
+    label = row['Vies']
+
     
     
-    bert_emb_text = np.array(get_bert_embeddings(tokens_tensor_text, segments_tensors_text, model)).mean(axis=0)
-    bert_emb_title = np.array(get_bert_embeddings(tokens_tensor_title, segments_tensors_title, model)).mean(axis=0)
-    bert_emb = np.concatenate([row, bert_emb_text, bert_emb_title])
+    tokenized_text, tokens_tensor, segments_tensors = bert_text_preparation(text, tokenizer)
+    
+    list_token_embeddings = get_bert_embeddings(tokens_tensor, segments_tensors, model)
+    
+    bert_emb = np.array(list_token_embeddings).mean(axis=0)
+    bert_emb = np.concatenate([row, bert_emb])
     emb_list.append(bert_emb)
     
     if j % 100 == 0:
@@ -94,10 +80,8 @@ print(f'End of Embedding. Datetime: {datetime.datetime.today()}')
 
 
     
-columns = np.concatenate([data_bert.columns, [f"emb_title{i}" for i in range(1, 769)], [f"emb_text{i}" for i in range(1, 769)]])
+columns = np.concatenate([data_bert.columns, [f"emb_{i + 1}" for i in range(len(emb_list[0]) - data_bert.shape[1])]])
 
 df_bert = pd.DataFrame(emb_list, columns=columns)
 
-
-for n, ds in enumerate(np.array_split(df_bert, 5)):
-    ds.to_parquet(output_path_folder + f'parte_{n+1}.parquet')
+df_bert.to_parquet(data_output_path, index = False)
