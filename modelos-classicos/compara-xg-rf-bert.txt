@@ -1,0 +1,92 @@
+Modelo: XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric=None, feature_types=None,
+              gamma=None, gpu_id=None, grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=None, max_bin=None,
+              max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=None, max_depth=None, max_leaves=None,
+              min_child_weight=None, missing=nan, monotone_constraints=None,
+              n_estimators=100, n_jobs=None, num_parallel_tree=None,
+              predictor=None, random_state=None, ...)
+Começo da Random Search: 2023-11-22 23:31:31.807720
+Final da Random Search: 2023-11-22 23:31:52.152470
+Melhor resultado na Random Search: 85.26
+Melhores parâmetros encontrados:
+{'selection__k': 800, 'estimator__lambda': 2, 'estimator__gamma': 4, 'estimator__colsample_bytree': 0, 'estimator__alpha': 13}
+Acurácia predita = 86.44%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.76      0.79      0.77       494
+           1       0.81      0.82      0.82       716
+           2       0.95      0.93      0.94      1039
+
+    accuracy                           0.86      2249
+   macro avg       0.84      0.85      0.84      2249
+weighted avg       0.87      0.86      0.87      2249
+----------------------------------------------
+Modelo: XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric=None, feature_types=None,
+              gamma=None, gpu_id=None, grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=None, max_bin=None,
+              max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=None, max_depth=None, max_leaves=None,
+              min_child_weight=None, missing=nan, monotone_constraints=None,
+              n_estimators=100, n_jobs=None, num_parallel_tree=None,
+              predictor=None, random_state=None, ...)
+Começo da Random Search: 2023-11-22 23:31:52.419495
+Final da Random Search: 2023-11-22 23:32:05.319498
+Melhor resultado na Random Search: 85.31
+Melhores parâmetros encontrados:
+{'selection__k': 800, 'estimator__lambda': 2, 'estimator__gamma': 4, 'estimator__colsample_bytree': 0, 'estimator__alpha': 13}
+Acurácia predita = 85.9%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.83      0.70      0.76       494
+           1       0.79      0.85      0.82       716
+           2       0.92      0.94      0.93      1039
+
+    accuracy                           0.86      2249
+   macro avg       0.85      0.83      0.84      2249
+weighted avg       0.86      0.86      0.86      2249
+----------------------------------------------
+Modelo: RandomForestClassifier(random_state=42)
+Começo da Random Search: 2023-11-22 23:32:05.431493
+Final da Random Search: 2023-11-22 23:32:29.213951
+Melhor resultado na Random Search: 89.31
+Melhores parâmetros encontrados:
+{'selection__k': 800, 'estimator__n_estimators': 37, 'estimator__min_samples_split': 2, 'estimator__min_samples_leaf': 3, 'estimator__max_features': 'log2', 'estimator__max_depth': 47, 'estimator__bootstrap': False}
+Acurácia predita = 90.35%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.88      0.74      0.81       494
+           1       0.85      0.90      0.88       716
+           2       0.95      0.98      0.96      1039
+
+    accuracy                           0.90      2249
+   macro avg       0.89      0.88      0.88      2249
+weighted avg       0.90      0.90      0.90      2249
+----------------------------------------------
+Modelo: RandomForestClassifier(random_state=42)
+Começo da Random Search: 2023-11-22 23:32:29.333953
+Final da Random Search: 2023-11-22 23:32:48.000398
+Melhor resultado na Random Search: 89.13
+Melhores parâmetros encontrados:
+{'selection__k': 800, 'estimator__n_estimators': 37, 'estimator__min_samples_split': 2, 'estimator__min_samples_leaf': 3, 'estimator__max_features': 'log2', 'estimator__max_depth': 47, 'estimator__bootstrap': False}
+Acurácia predita = 89.86%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.90      0.71      0.79       494
+           1       0.84      0.91      0.87       716
+           2       0.94      0.98      0.96      1039
+
+    accuracy                           0.90      2249
+   macro avg       0.89      0.87      0.88      2249
+weighted avg       0.90      0.90      0.90      2249
+----------------------------------------------

@@ -1,0 +1,36 @@
+Modelo: MultinomialNB()
+Começo da Random Search: 2023-11-22 22:03:38.621749
+Final da Random Search: 2023-11-22 22:03:41.568295
+Melhor resultado na Random Search: 79.44
+Melhores parâmetros encontrados:
+{'selection__k': 600, 'estimator__fit_prior': True, 'estimator__alpha': 0.02}
+Acurácia predita = 80.7%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.80      0.43      0.56       494
+           1       0.69      0.88      0.77       716
+           2       0.91      0.94      0.92      1039
+
+    accuracy                           0.81      2249
+   macro avg       0.80      0.75      0.75      2249
+weighted avg       0.81      0.81      0.79      2249
+----------------------------------------------
+Modelo: SVC(random_state=42)
+Começo da Random Search: 2023-11-22 22:03:41.645310
+Final da Random Search: 2023-11-22 22:05:15.427861
+Melhor resultado na Random Search: 90.36
+Melhores parâmetros encontrados:
+{'selection__k': 600, 'estimator__kernel': 'linear', 'estimator__gamma': 0.01, 'estimator__C': 10}
+Acurácia predita = 89.6%
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.80      0.85      0.82       494
+           1       0.86      0.85      0.86       716
+           2       0.97      0.95      0.96      1039
+
+    accuracy                           0.90      2249
+   macro avg       0.88      0.88      0.88      2249
+weighted avg       0.90      0.90      0.90      2249
+----------------------------------------------
