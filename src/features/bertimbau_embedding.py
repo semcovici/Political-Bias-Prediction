@@ -9,8 +9,8 @@ import datetime
 
 
 ################ Data Path #################################
-data_input_path = '../../dataset/processed/artigos_tratados/artigos_tratados.parquet'
-data_output_path = "../../dataset/processed/artigos_tratados/bertimbau/artigos_tratados_bert_lg.parquet"
+data_input_path = '../../dataset/processed/artigos_tratados/artigo-folha_tratados.csv'
+data_output_path = "../../dataset/processed/artigos_tratados/bertimbau/artigo-folha_tratados.csv_bert_lg.csv"
 ############################################################
 
 
@@ -48,7 +48,7 @@ model = BertModel.from_pretrained('neuralmind/bert-large-portuguese-cased', outp
 
 
 # get data
-data = pd.read_parquet(data_input_path)
+data = pd.read_csv(data_input_path)
 data_bert = data.copy()
 
 emb_list = list()
@@ -59,7 +59,7 @@ print(f'Start of Embeddding. Datetime: {datetime.datetime.today()}')
 for i, row in data_bert.iterrows():
 
     text = row['Conteudo']
-    label = row['Vies']
+    #label = row['Vies']
 
     
     
@@ -84,4 +84,4 @@ columns = np.concatenate([data_bert.columns, [f"emb_{i + 1}" for i in range(len(
 
 df_bert = pd.DataFrame(emb_list, columns=columns)
 
-df_bert.to_parquet(data_output_path, index = False)
+df_bert.to_csv(data_output_path, index = False)
