@@ -9,8 +9,8 @@ import datetime
 
 
 ################ Data Path #################################
-data_input_path = '../../predicao-final/noticias-teste.csv'
-data_output_path = "../../predicao-final/noticias-teste-embedding.csv"
+data_input_path = '../../predicao-final/noticias-teste-oeste-cart_capital-tratado.csv'
+data_output_path = "../../predicao-final/noticias-teste-oeste-cart_capital-tratado-embedding.csv"
 ############################################################
 
 
